@@ -1,6 +1,7 @@
 package GUICAM.tech.ms_soins_sante.services;
 
 import GUICAM.tech.ms_soins_sante.DTO.ConsultationDTO;
+import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
 import GUICAM.tech.ms_soins_sante.entities.ConsultationEntity;
 import GUICAM.tech.ms_soins_sante.entities.MedecinEntity;
 import GUICAM.tech.ms_soins_sante.entities.PatientEntity;
@@ -22,6 +23,7 @@ public class ConsultationService {
     private final PatientRepository patientRepository;
     private final MedecinRepository medecinRepository;
     private final RendezVousRepository rendezVousRepository;
+    private final BusinessMetricsConfig metrics;
 
     public List<ConsultationDTO> getAll() {
         return consultationRepository.findAll().stream()
@@ -63,7 +65,21 @@ public class ConsultationService {
         e.setDiagnostic(dto.diagnostic());
         e.setNotes(dto.notes());
 
-        return toDTO(consultationRepository.save(e));
+        ConsultationEntity savedEntity = consultationRepository.save(e);
+
+        // Métriques
+        metrics.incrementConsultation();
+
+        return toDTO(savedEntity);
+    }
+
+    public ConsultationEntity createConsultation(ConsultationEntity c) {
+        ConsultationEntity savedConsultation = consultationRepository.save(c);
+
+        // Métriques
+        metrics.incrementConsultation();
+
+        return savedConsultation;
     }
 
     private ConsultationDTO toDTO(ConsultationEntity e) {

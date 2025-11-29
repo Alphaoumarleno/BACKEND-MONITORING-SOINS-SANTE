@@ -1,6 +1,5 @@
 package GUICAM.tech.ms_soins_sante.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +13,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "administration")
 public class AdministrationEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Id administ_id;
+    @Column(name = "administ_id")
+    private Long administId;
+
     private String nom;
     private String prenom;
     private String specialite;

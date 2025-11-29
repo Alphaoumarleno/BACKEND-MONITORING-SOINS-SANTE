@@ -1,54 +1,48 @@
 package GUICAM.tech.ms_soins_sante.controller;
 
-import GUICAM.tech.ms_soins_sante.entities.RendezVousEntity;
-import GUICAM.tech.ms_soins_sante.service.RendezVousService;
-import org.hibernate.mapping.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import GUICAM.tech.ms_soins_sante.DTO.RendezVousDTO;
+import GUICAM.tech.ms_soins_sante.services.RendezVousService; // ← IMPORT CORRIGÉ
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/rendezvous")
+@RequiredArgsConstructor
 public class RendezVousController {
-    private final RendezVousService service;
 
-    public RendezVousController(RendezVousService service) {
-        this.service = service;
+    private final RendezVousService rendezVousService;
 
+    @GetMapping
+    public List<RendezVousDTO> getAll() {
+        return rendezVousService.getAll();
     }
+
+    @GetMapping("/{id}")
+    public RendezVousDTO getById(@PathVariable Long id) {
+        return rendezVousService.getById(id);
+    }
+
+    @GetMapping("/patient/{patientId}")
+    public List<RendezVousDTO> getByPatient(@PathVariable Long patientId) {
+        return rendezVousService.getByPatient(patientId);
+    }
+
+    @GetMapping("/medecin/{medecinId}")
+    public List<RendezVousDTO> getByMedecin(@PathVariable Long medecinId) {
+        return rendezVousService.getByMedecin(medecinId);
+    }
+
     @PostMapping
-    public ResponseEntity<RendezVousEntity> creer(@RequestBody CreateRdvRequest req) {
-        RendezVousEntity rdv = service.creerRendezVous(req.getPatientId(), req.getMedecinId(),
-                req.getDate(), req.getHeure(), req.getMotif());
-        return ResponseEntity.ok(rdv);
+    public RendezVousDTO create(@RequestBody RendezVousDTO dto) {
+        return rendezVousService.create(dto);
     }
 
-    @GetMapping("/patient/{id}")
-    public ResponseEntity<List<RendezVousEntity>> rdvParPatient(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getRdvByPatient(id));
-    }
-
-    @GetMapping("/medecin/{id}")
-    public ResponseEntity<List<RendezVousEntity>> rdvParMedecin(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getRdvByMedecin(id));
-    }
-
-    @PutMapping("/{id}/confirmer")
-    public ResponseEntity<RendezVous> confirmer(@PathVariable Long id) {
-        return ResponseEntity.ok(service.confirmerRdv(id));
-    }
-
-    @PutMapping("/{id}/annuler")
-    public ResponseEntity<RendezVous> annuler(@PathVariable Long id) {
-        return ResponseEntity.ok(service.annulerRdv(id));
-    }
-
-    @GetMapping("/medecin/{id}/disponibilite")
-    public ResponseEntity<List<RendezVous>> disponibilite(@PathVariable Long id,
-                                                          @RequestParam("date") String date) {
-        // parse date expected format: yyyy-MM-dd
-        java.time.LocalDate d = java.time.LocalDate.parse(date);
-        return ResponseEntity.ok(service.disponibiliteMedecin(id, d));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        rendezVousService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
-

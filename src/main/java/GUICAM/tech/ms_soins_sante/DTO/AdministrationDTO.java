@@ -1,9 +1,6 @@
 package GUICAM.tech.ms_soins_sante.DTO;
 
-
-
-public record AdministrationDTO {
-
+public record AdministrationDTO(
         String nom,
         String prenom,
         String specialite,
@@ -11,5 +8,5 @@ public record AdministrationDTO {
         String email,
         String numero_ordre,
         String disponibilite,
-        String statut)
-}
+        String statut
+) {}
