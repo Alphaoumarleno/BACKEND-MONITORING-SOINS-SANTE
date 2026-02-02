@@ -1,5 +1,6 @@
 package GUICAM.tech.ms_soins_sante.services;
 
+<<<<<<< HEAD
 import GUICAM.tech.ms_soins_sante.DTO.PatientDTO;
 import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
 import GUICAM.tech.ms_soins_sante.entities.PatientEntity;
@@ -86,3 +87,7 @@ public class PatientService {
     // La méthode createPatient a été fusionnée avec la méthode create existante
     // L'appel à metrics.incrementPatient() a été déplacé dans la méthode create()
 }
+=======
+public class PatientService {
+}
+>>>>>>> b85821c (Ajout du fichier readme.md)

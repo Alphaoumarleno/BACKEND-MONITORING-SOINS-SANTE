@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package GUICAM.tech.ms_soins_sante.devops.metrics;
 
 import io.micrometer.core.instrument.Counter;
@@ -30,4 +31,9 @@ public class ConsultationMetrics {
                 .tag("application", "ms-soins-sante")
                 .register(registry);
     }
+=======
+package GUICAM.tech.ms_soins_sante.metrics;
+
+public class ConsultationMetrics {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }

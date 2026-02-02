@@ -1,5 +1,6 @@
 package GUICAM.tech.ms_soins_sante.controller;
 
+<<<<<<< HEAD
 import GUICAM.tech.ms_soins_sante.DTO.ConsultationDTO;
 import GUICAM.tech.ms_soins_sante.services.ConsultationService;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +34,7 @@ public class ConsultationController {
     public ConsultationDTO create(@RequestBody ConsultationDTO dto) {
         return consultationService.create(dto);
     }
+=======
+public class ConsultationController {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package GUICAM.tech.ms_soins_sante.devops.metrics;
 
 import io.micrometer.core.instrument.Gauge;
@@ -61,4 +62,9 @@ public class SystemMetrics {
         Runtime r = Runtime.getRuntime();
         return r.freeMemory();
     }
+=======
+package GUICAM.tech.ms_soins_sante.metrics;
+
+public class SystemMetrics {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }

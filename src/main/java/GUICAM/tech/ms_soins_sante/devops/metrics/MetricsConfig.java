@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package GUICAM.tech.ms_soins_sante.devops.metrics;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -12,4 +13,9 @@ public class MetricsConfig {
                 "service", "soins"
         );
     }
+=======
+package GUICAM.tech.ms_soins_sante.metrics;
+
+public class MetricsConfig {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }

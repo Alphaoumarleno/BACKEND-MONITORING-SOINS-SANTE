@@ -1,5 +1,6 @@
 package GUICAM.tech.ms_soins_sante.entities;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,4 +40,7 @@ public class ConsultationEntity {
     private String motif;
     private String diagnostic;
     private String notes;
+=======
+public class ConsultationEntity {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }

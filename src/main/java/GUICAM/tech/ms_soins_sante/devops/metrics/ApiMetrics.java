@@ -1,5 +1,6 @@
 package GUICAM.tech.ms_soins_sante.devops.metrics;
 
+<<<<<<< HEAD
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -85,4 +86,7 @@ public class ApiMetrics extends OncePerRequestFilter {
         if (status >= 400 && status < 500) http4xxErrors.increment();
         if (status >= 500) http5xxErrors.increment();
     }
+=======
+public class ApiMetrics {
+>>>>>>> b85821c (Ajout du fichier readme.md)
 }
