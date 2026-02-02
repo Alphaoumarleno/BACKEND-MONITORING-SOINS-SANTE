@@ -1,60 +1,41 @@
-# 👶 MS-GESTION-NAISSANCES  
-### Système de gestion des déclarations de naissance
+# 📊 BACKEND-MONITORING-SOINS-SANTE  
+### Système de monitoring du backend – Application Soins Santé
 
-🎓 **Projet académique – Cycle Ingénieur (Cloud & Systèmes Distribués)**
+🎓 **Projet académique – Cycle Ingénieur (Cloud & Systèmes Distribués)**  
+🔧 **Orientation : DevOps – Observabilité – Backend Spring Boot**
 
 ---
 
 ## 🧭 Vue d’ensemble
 
-**MS-GESTION-NAISSANCES** est une application **full-stack** destinée à la gestion et à la
-digitalisation des déclarations de naissance au sein d’un établissement de santé
-ou d’une administration d’état civil.
+**BACKEND-MONITORING-SOINS-SANTE** est un projet dédié à la **mise en place d’un système de monitoring**
+pour la partie **backend Spring Boot** d’une application de gestion des soins de santé.
 
-Le projet est structuré autour :
-- d’un **backend Spring Boot** exposant une API REST sécurisée,
-- d’un **frontend React** (dossier `website-naissance`) pour l’interface utilisateur,
-- d’un **pipeline CI/CD** pour l’automatisation des builds et du déploiement.
+L’objectif est d’assurer :
+- la **surveillance en temps réel** des performances,
+- la **détection proactive des incidents**,
+- la **visualisation claire des métriques techniques**,
+- et la **préparation à un environnement de production**.
 
 ---
-![Schéma d’architecture](screenshots/login.png)
+![Architecture du monitoring](screenshots/dashboardmetier1.png)
+![Architecture du monitoring](screenshots/dashboardprometheus1.png)
+![Architecture du monitoring](screenshots/dashboardmetier2.png)
+![Architecture du monitoring](screenshots/backendalert.png)
 ## 🎯 Objectifs du projet
 
-- Digitaliser le processus de déclaration de naissance
-- Centraliser et sécuriser les données d’état civil
-- Réduire les erreurs et les doublons
-- Assurer la traçabilité des opérations
-- Mettre en place une architecture full-stack maintenable
-- Automatiser l’intégration et le déploiement via CI/CD
+- Mettre en place un système de monitoring backend fiable
+- Exposer les métriques applicatives avec Spring Boot Actuator
+- Collecter les métriques via Prometheus
+- Visualiser les données avec Grafana
+- Analyser les performances et la stabilité du backend
+- Préparer l’application à une exploitation en production
 
 ---
 
-##  Architecture du système
-![Schéma d’architecture](screenshots/architecture.png)
-**Frontend (React – website-naissance)**  
-⬇ API REST  
-**Backend (Spring Boot)**  
-⬇  
-**Base de données relationnelle**
+## 🏗 Architecture du monitoring
 
-L’architecture repose sur une séparation claire :
-- présentation (React),
-- logique métier (Spring Services),
-- persistance (Spring Data JPA).
+Le système de monitoring repose sur l’architecture suivante :
 
----
-
-## 📁 Structure du projet
-
-```text
-MS-GESTION-NAISSANCES/
-├── src/                     # Backend Spring Boot
-│   ├── main/
-│   └── test/
-├── website-naissance/       # Frontend React
-│   ├── src/
-│   ├── public/
-│   └── package.json
-├── .github/workflows/       # CI/CD (GitHub Actions)
-├── pom.xml                  # Configuration Maven
-└── README.md
+```md
+![Architecture du monitoring](screenshots/architecture.png)
