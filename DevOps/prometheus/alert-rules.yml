@@ -1,0 +1,39 @@
+groups:
+  - name: backend_alerts
+    rules:
+
+      - alert: BackendDown
+        expr: up{application="ms-soins-sante"} == 0
+        for: 20s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend soins-santé down"
+          description: "Le service ne répond plus sur /actuator/prometheus"
+
+      - alert: HighCPU
+        expr: process_cpu_usage * 100 > 80
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU élevé"
+          description: "CPU > 80%"
+
+      - alert: HighMemory
+        expr: jvm_memory_used_bytes > jvm_memory_max_bytes * 0.85
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Mémoire JVM élevée"
+          description: "Mémoire utilisée > 85%"
+
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum by(le) (rate(http_server_requests_seconds_bucket[2m]))) > 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latence élevée"
+          description: "Le p95 dépasse 1 seconde"

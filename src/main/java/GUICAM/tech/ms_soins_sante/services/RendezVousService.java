@@ -1,12 +1,15 @@
 package GUICAM.tech.ms_soins_sante.services;
 
 import GUICAM.tech.ms_soins_sante.DTO.RendezVousDTO;
+import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
 import GUICAM.tech.ms_soins_sante.entities.MedecinEntity;
 import GUICAM.tech.ms_soins_sante.entities.PatientEntity;
 import GUICAM.tech.ms_soins_sante.entities.RendezVousEntity;
 import GUICAM.tech.ms_soins_sante.repositories.MedecinRepository;
 import GUICAM.tech.ms_soins_sante.repositories.PatientRepository;
 import GUICAM.tech.ms_soins_sante.repositories.RendezVousRepository;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ public class RendezVousService {
     private final RendezVousRepository rendezVousRepository;
     private final PatientRepository patientRepository;
     private final MedecinRepository medecinRepository;
+    private final BusinessMetricsConfig metrics;
+    private final MeterRegistry meterRegistry;
 
     public List<RendezVousDTO> getAll() {
         return rendezVousRepository.findAll()
@@ -68,7 +73,37 @@ public class RendezVousService {
         entity.setStatut(dto.statut());
         entity.setMotif(dto.motif());
 
-        return toDTO(rendezVousRepository.save(entity));
+        RendezVousEntity savedEntity = rendezVousRepository.save(entity);
+
+        // Métriques
+        metrics.incrementRdv();
+
+        // TODO: calcul temps depuis dernier RDV
+        long minutes = 0; // à calculer
+        metrics.updateRdvDelay(minutes);
+
+        // Métrique par spécialité
+        incrementRdvBySpecialiteCounter(medecin.getSpecialite());
+
+        return toDTO(savedEntity);
+    }
+
+    public RendezVousEntity createRdv(RendezVousEntity rdv) {
+        RendezVousEntity savedRdv = rendezVousRepository.save(rdv);
+
+        // Métriques
+        metrics.incrementRdv();
+
+        // TODO: calcul temps depuis dernier RDV
+        long minutes = 0; // à calculer
+        metrics.updateRdvDelay(minutes);
+
+        // Métrique par spécialité
+        if (rdv.getMedecin() != null && rdv.getMedecin().getSpecialite() != null) {
+            incrementRdvBySpecialiteCounter(rdv.getMedecin().getSpecialite());
+        }
+
+        return savedRdv;
     }
 
     public void delete(Long id) {
@@ -85,5 +120,12 @@ public class RendezVousService {
                 e.getStatut(),
                 e.getMotif()
         );
+    }
+
+    private void incrementRdvBySpecialiteCounter(String specialite) {
+        Counter counter = Counter.builder("santeplus_rdv_by_specialite_total")
+                .tag("specialite", specialite)
+                .register(meterRegistry);
+        counter.increment();
     }
 }

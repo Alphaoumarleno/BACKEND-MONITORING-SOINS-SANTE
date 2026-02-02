@@ -1,4 +1,41 @@
 package GUICAM.tech.ms_soins_sante.dataAccess;
 
+import GUICAM.tech.ms_soins_sante.entities.ConsultationEntity;
+import GUICAM.tech.ms_soins_sante.repositories.ConsultationRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+
+@Component
+@AllArgsConstructor
 public class ConsultationDataAccess {
+
+    private final ConsultationRepository consultationRepository;
+
+    public List<ConsultationEntity> findAll() {
+        return consultationRepository.findAll();
+    }
+
+    public Optional<ConsultationEntity> findById(Long id) {
+        return consultationRepository.findById(id);
+    }
+
+    public ConsultationEntity save(ConsultationEntity consultation) {
+        return consultationRepository.save(consultation);
+    }
+
+    public void deleteById(Long id) {
+        consultationRepository.deleteById(id);
+    }
+
+    public List<ConsultationEntity> findByPatient(Long patientId) {
+        // ❗ Correction ici : méthode correcte
+        return consultationRepository.findByPatientPatientId(patientId);
+    }
+
+    public List<ConsultationEntity> findByMedecin(Long medecinId) {
+        return consultationRepository.findByMedecinMedecinId(medecinId);
+    }
 }

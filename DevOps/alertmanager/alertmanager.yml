@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  alertmanager.yml: |
+    global:
+      resolve_timeout: 5m
+      smtp_smarthost: 'smtp.gmail.com:587'
+      smtp_from: 'alertmanager@soins-sante.com'
+      smtp_auth_username: 'lenoalphaoumar@gmail.com'
+      smtp_auth_password: 'msxc lieh dliv yalp'
+      smtp_require_tls: true
+
+    route:
+      group_by: ['alertname', 'service']
+      group_wait: 10s
+      group_interval: 10s
+      repeat_interval: 1h
+      receiver: 'email-notifications'
+      routes:
+        - match:
+            severity: critical
+          repeat_interval: 10m
+          receiver: 'email-notifications'
+
+    receivers:
+    - name: 'email-notifications'
+      email_configs:
+      - to: 'leno.alpha.oumar@gmail.com'
+        send_resolved: true
+        headers:
+          Subject: '{{ .GroupLabels.alertname }} - {{ .Status | toUpper }}'
+        html: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; }
+              .alert-firing { background-color: #ffebee; border-left: 4px solid #f44336; }
+              .alert-resolved { background-color: #e8f5e8; border-left: 4px solid #4caf50; }
+              .container { padding: 15px; margin: 10px 0; }
+            </style>
+          </head>
+          <body>
+            <h2>Alert {{ .Status | toUpper }} - Système de Soins Santé</h2>
+            {{ range .Alerts }}
+            <div class="container {{ if eq .Status "firing" }}alert-firing{{ else }}alert-resolved{{ end }}">
+              <h3>Alert: {{ .Labels.alertname }}</h3>
+              <p><strong>Service:</strong> {{ .Labels.service }}</p>
+              <p><strong>Severity:</strong> {{ .Labels.severity }}</p>
+              <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+              <p><strong>Summary:</strong> {{ .Annotations.summary }}</p>
+              <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+              <p><strong>Time:</strong> {{ .StartsAt.Format "2006-01-02 15:04:05" }}</p>
+            </div>
+            {{ end }}
+          </body>
+          </html>

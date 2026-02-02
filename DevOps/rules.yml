@@ -1,0 +1,157 @@
+groups:
+  - name: backend-health-alerts
+    rules:
+
+      # ============================
+      # 🔥  ALERTES API
+      # ============================
+
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, sum(rate(api_latency_seconds_bucket[5m])) by (le)) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Temps de réponse API élevé"
+          description: "La latence 95th percentile dépasse 500ms."
+
+      - alert: VeryHighAPILatency
+        expr: histogram_quantile(0.99, sum(rate(api_latency_seconds_bucket[5m])) by (le)) > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Temps de réponse API CRITIQUE"
+          description: "La latence p99 dépasse 1 seconde."
+
+      - alert: APIRateDrop
+        expr: rate(api_requests_total[5m]) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Baisse de trafic API"
+          description: "Moins de 0.1 requête/sec → API semble inactive."
+
+      - alert: HighAPI4xxErrors
+        expr: rate(api_errors_4xx_total[5m]) > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Beaucoup d’erreurs API 4xx"
+          description: "Plus de 5 erreurs 4xx / seconde → problème client probable."
+
+      - alert: HighAPI5xxErrors
+        expr: rate(api_errors_5xx_total[5m]) > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Erreurs API 5xx élevées"
+          description: "Plus de 1 erreur serveur / sec → backend probablement instable."
+
+      # ============================
+      # 🔥  ALERTES JVM
+      # ============================
+
+      - alert: HighJvmHeapUsage
+        expr: (jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"}) > 0.80
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Heap JVM élevé"
+          description: "La JVM dépasse 80% du heap."
+
+      - alert: CriticalJvmHeapUsage
+        expr: (jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"}) > 0.95
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Heap JVM CRITIQUE"
+          description: "La JVM dépasse 95% du heap → OOM imminent."
+
+      - alert: HighCPUUsage
+        expr: process_cpu_usage > 0.85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU JVM élevé"
+          description: "Le CPU dépasse 85%."
+
+      - alert: TooManyThreads
+        expr: jvm_threads_live_threads > 200
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Trop de threads JVM"
+          description: "Plus de 200 threads actifs."
+
+      # ============================
+      # 🔥  ALERTES BASE DE DONNÉES
+      # ============================
+
+      - alert: HikariHighConnections
+        expr: hikaricp_connections_active > 10
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Beaucoup de connexions DB actives"
+          description: "Plus de 10 connexions simultanées."
+
+      - alert: HikariPoolExhausted
+        expr: hikaricp_connections_active == hikaricp_connections_max
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pool Hikari épuisé"
+          description: "Toutes les connexions DB sont utilisées → backend bloqué."
+
+      # ============================
+      # 🔥  ALERTES SYSTEME
+      # ============================
+
+      - alert: LowDiskSpace
+        expr: disk_free_bytes < (10 * 1024 * 1024 * 1024)
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Espace disque faible"
+          description: "Moins de 10 Go disponibles."
+
+      - alert: LowSystemMemory
+        expr: system_memory_free_bytes < (500 * 1024 * 1024)
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Mémoire RAM faible"
+          description: "Moins de 500 Mo de RAM disponible."
+
+      # ============================
+      # 🔥  ALERTES UP/DOWN
+      # ============================
+
+      - alert: BackendDown
+        expr: up{application="ms-soins-sante"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Le backend est DOWN"
+          description: "ms-soins-sante ne répond plus."
+
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Prometheus DOWN"
+          description: "L'instance Prometheus ne répond plus."
