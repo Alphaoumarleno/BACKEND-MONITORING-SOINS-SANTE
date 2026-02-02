@@ -1,6 +1,9 @@
 package GUICAM.tech.ms_soins_sante.devops.metrics;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -78,7 +81,10 @@ public class BusinessMetricsConfig {
     public void incrementConsultation() {
         consultationsCreatedCounter.increment();
     }
+<<<<<<< HEAD
 =======
 public class BusinessMetricsConfig {
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 }

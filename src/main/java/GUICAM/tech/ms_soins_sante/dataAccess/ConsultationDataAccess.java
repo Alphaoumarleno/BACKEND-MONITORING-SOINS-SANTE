@@ -1,6 +1,9 @@
 package GUICAM.tech.ms_soins_sante.dataAccess;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import GUICAM.tech.ms_soins_sante.entities.ConsultationEntity;
 import GUICAM.tech.ms_soins_sante.repositories.ConsultationRepository;
 import lombok.AllArgsConstructor;
@@ -39,7 +42,10 @@ public class ConsultationDataAccess {
     public List<ConsultationEntity> findByMedecin(Long medecinId) {
         return consultationRepository.findByMedecinMedecinId(medecinId);
     }
+<<<<<<< HEAD
 =======
 public class ConsultationDataAccess {
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 }

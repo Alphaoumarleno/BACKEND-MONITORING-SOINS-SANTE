@@ -2,9 +2,13 @@ package GUICAM.tech.ms_soins_sante.services;
 
 import GUICAM.tech.ms_soins_sante.DTO.ConsultationDTO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
 =======
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import GUICAM.tech.ms_soins_sante.entities.ConsultationEntity;
 import GUICAM.tech.ms_soins_sante.entities.MedecinEntity;
 import GUICAM.tech.ms_soins_sante.entities.PatientEntity;
@@ -27,9 +31,13 @@ public class ConsultationService {
     private final MedecinRepository medecinRepository;
     private final RendezVousRepository rendezVousRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final BusinessMetricsConfig metrics;
 =======
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+    private final BusinessMetricsConfig metrics;
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 
     public List<ConsultationDTO> getAll() {
         return consultationRepository.findAll().stream()
@@ -72,6 +80,9 @@ public class ConsultationService {
         e.setNotes(dto.notes());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
         ConsultationEntity savedEntity = consultationRepository.save(e);
 
         // Métriques
@@ -87,9 +98,12 @@ public class ConsultationService {
         metrics.incrementConsultation();
 
         return savedConsultation;
+<<<<<<< HEAD
 =======
         return toDTO(consultationRepository.save(e));
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
     }
 
     private ConsultationDTO toDTO(ConsultationEntity e) {
@@ -105,7 +119,11 @@ public class ConsultationService {
         );
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+}
+>>>>>>> a19c632 (Ajout du fichier readme.md)

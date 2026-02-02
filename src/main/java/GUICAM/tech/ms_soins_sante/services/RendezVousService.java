@@ -2,9 +2,13 @@ package GUICAM.tech.ms_soins_sante.services;
 
 import GUICAM.tech.ms_soins_sante.DTO.RendezVousDTO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
 =======
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+import GUICAM.tech.ms_soins_sante.devops.metrics.BusinessMetricsConfig;
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import GUICAM.tech.ms_soins_sante.entities.MedecinEntity;
 import GUICAM.tech.ms_soins_sante.entities.PatientEntity;
 import GUICAM.tech.ms_soins_sante.entities.RendezVousEntity;
@@ -12,10 +16,15 @@ import GUICAM.tech.ms_soins_sante.repositories.MedecinRepository;
 import GUICAM.tech.ms_soins_sante.repositories.PatientRepository;
 import GUICAM.tech.ms_soins_sante.repositories.RendezVousRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 =======
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +38,15 @@ public class RendezVousService {
     private final PatientRepository patientRepository;
     private final MedecinRepository medecinRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final BusinessMetricsConfig metrics;
     private final MeterRegistry meterRegistry;
 =======
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+    private final BusinessMetricsConfig metrics;
+    private final MeterRegistry meterRegistry;
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 
     public List<RendezVousDTO> getAll() {
         return rendezVousRepository.findAll()
@@ -83,6 +97,9 @@ public class RendezVousService {
         entity.setMotif(dto.motif());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
         RendezVousEntity savedEntity = rendezVousRepository.save(entity);
 
         // Métriques
@@ -114,9 +131,12 @@ public class RendezVousService {
         }
 
         return savedRdv;
+<<<<<<< HEAD
 =======
         return toDTO(rendezVousRepository.save(entity));
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
     }
 
     public void delete(Long id) {
@@ -135,6 +155,9 @@ public class RendezVousService {
         );
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 
     private void incrementRdvBySpecialiteCounter(String specialite) {
         Counter counter = Counter.builder("santeplus_rdv_by_specialite_total")
@@ -142,7 +165,11 @@ public class RendezVousService {
                 .register(meterRegistry);
         counter.increment();
     }
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+}
+>>>>>>> a19c632 (Ajout du fichier readme.md)

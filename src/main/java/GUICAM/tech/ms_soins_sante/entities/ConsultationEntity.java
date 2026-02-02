@@ -1,6 +1,9 @@
 package GUICAM.tech.ms_soins_sante.entities;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +43,10 @@ public class ConsultationEntity {
     private String motif;
     private String diagnostic;
     private String notes;
+<<<<<<< HEAD
 =======
 public class ConsultationEntity {
 >>>>>>> b85821c (Ajout du fichier readme.md)
+=======
+>>>>>>> a19c632 (Ajout du fichier readme.md)
 }
